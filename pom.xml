@@ -11,6 +11,8 @@
     <module>cloud_payment_provider</module>
     <module>cloud_payment_consumer</module>
       <module>cloud_payment_commons</module>
+      <module>cloud_eureka_service</module>
+      <module>cloud_eureka_service7002</module>
   </modules>
   <packaging>pom</packaging>
 

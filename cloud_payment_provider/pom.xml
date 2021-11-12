@@ -15,6 +15,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.ana</groupId>
             <artifactId>cloud_payment_commons</artifactId>
             <version>${project.version}</version>
