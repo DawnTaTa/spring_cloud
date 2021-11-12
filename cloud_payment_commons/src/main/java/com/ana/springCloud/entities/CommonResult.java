@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommonResult<T> {
 
+    //添加备注
     //404 not_found
     private Integer code;
     private String message;
