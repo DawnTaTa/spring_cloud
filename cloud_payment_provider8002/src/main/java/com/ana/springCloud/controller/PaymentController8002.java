@@ -2,7 +2,7 @@ package com.ana.springCloud.controller;
 
 import com.ana.springCloud.entities.CommonResult;
 import com.ana.springCloud.entities.Payment;
-import com.ana.springCloud.service.PaymentService;
+import com.ana.springCloud.service.PaymentService8002;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("payment")
-public class PaymentController {
+@RequestMapping("/payment")
+public class PaymentController8002 {
 
     @Resource
-    private PaymentService paymentService;
+    private PaymentService8002 paymentService;
 
     @Resource
     private DiscoveryClient discoveryClient;
@@ -49,17 +49,17 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(value = "/payment/discovery")
-    public Object discovery(){
+    @GetMapping("/payment/discovery")
+    public Object getDiscoverys(){
         List<String> services = discoveryClient.getServices();
-        for (String element : services) {
-            log.info("***** element:"+element);
+        for (String service : services) {
+            log.info("服务发现："+service);
         }
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        List<ServiceInstance> instances = discoveryClient.getInstances("cloud-payment-service");
         for (ServiceInstance instance : instances) {
-            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
+            log.info("服务实例id："+instance.getServiceId()+"\t"+"服务实例Host："+instance.getHost()+"\t"+"服务实例Port"+instance.getPort()+"\t"+"服务地址"+instance.getUri());
         }
-        return this.discoveryClient;
+        return discoveryClient;
     }
 
 }
