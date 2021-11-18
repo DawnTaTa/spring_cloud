@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
-@RequestMapping("/payment")
 public class PaymentController8002 {
 
     @Resource
@@ -24,26 +24,33 @@ public class PaymentController8002 {
     private DiscoveryClient discoveryClient;
 
     @Value("${server.port}")
-    private String serverPost;
+    private String serverPort;
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/payment/create")
     public CommonResult creat(@RequestBody Payment payment){
         int result = paymentService.create(payment);
         log.info("*****插入结果："+result);
         if (result>0){  //成功
-            return new CommonResult(200,"插入数据库成功，访问端口："+serverPost,result);
+            return new CommonResult(200,"插入数据库成功，访问端口："+serverPort,result);
         }else {
             return new CommonResult(444,"插入数据库失败",null);
         }
 
     }
 
-    @GetMapping(value = "/get/{id}")
+    @GetMapping(value = "/payment/get/{id}")
     public CommonResult getPaymentById(@PathVariable("id") Long id){
+
+        /*try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
         Payment payment = paymentService.getPaymentById(id);
         log.info("*****查询结果："+payment);
         if (payment!=null){  //说明有数据，能查询成功
-            return new CommonResult(200,"查询成功，访问端口："+serverPost,payment);
+            return new CommonResult(200,"查询成功，访问端口："+serverPort,payment);
         }else {
             return new CommonResult(444,"没有对应记录，查询ID："+id,null);
         }
@@ -60,6 +67,11 @@ public class PaymentController8002 {
             log.info("服务实例id："+instance.getServiceId()+"\t"+"服务实例Host："+instance.getHost()+"\t"+"服务实例Port"+instance.getPort()+"\t"+"服务地址"+instance.getUri());
         }
         return discoveryClient;
+    }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
     }
 
 }
