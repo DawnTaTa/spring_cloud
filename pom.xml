@@ -27,6 +27,7 @@
       <module>cloudalibaba-provider-payment9002</module>
       <module>cloudalibaba-consumer-nacos-order83</module>
       <module>cloudalibaba-config-nacos-client3377</module>
+      <module>cloudalibaba-sentinel-service8401</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -46,6 +47,13 @@
   <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写groupId和version -->
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>com.ana</groupId>
+        <artifactId>cloud_payment_commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     <!--spring boot 2.2.2-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
